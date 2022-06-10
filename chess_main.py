@@ -33,10 +33,10 @@ def main():
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
-        elif e.type == p.MOUSEBUTTONDOWN:
-            location = p.mouse.get_pos() # will get (x,y) position of mouse
-            col = location[0] // SQ_SIZE
-            row = location[1] // SQ_SIZE
+            elif e.type == p.MOUSEBUTTONDOWN:
+                location = p.mouse.get_pos() # will get (x,y) position of mouse
+                col = location[0] // SQ_SIZE
+                row = location[1] // SQ_SIZE
             if squareSelected == (row, col): # this is when the player selects the same square again
                 squareSelected = () # deselcts the square
                 playerClicks = [] # click player clicks
@@ -45,7 +45,7 @@ def main():
                 playerClicks.append(squareSelected) #appends for both 1st and 2nd click
             
             if len(playerClicks) == 2: # after 2nd click
-                
+                pass
                 
             
         drawGameState(screen, gs)
