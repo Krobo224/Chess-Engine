@@ -23,13 +23,22 @@ class GameState:
                                ])
         self.whiteToMove = True # true means there is chance of white to play. False means there is black's chance
         self.moveLog = [] # maintains history of the moves made
-        
+    
+    # the below method to make move
+    # Note: This will not work for castling, en-passant, pawn capturing techniques    
     def makeMove(self, move):
         self.board[move.startRow][move.startColumn] = '--'
         self.board[move.endRow][move.endColumn] = move.pieceMoved
         self.moveLog.append(move) # updating the history of moves
         self.whiteToMove = not self.whiteToMove # swapping the players (for alternate chances)
         
+    #undo functionality
+    def undoFunc(self):
+        if len(self.moveLog) != 0:
+            temp_obj = self.moveLog.pop() # returns the last element as well as deleted it.
+            self.board[temp_obj.startRow][temp_obj.startColumn] = temp_obj.pieceMoved
+            self.board[temp_obj.endRow][temp_obj.endColumn] = temp_obj.pieceCaptured
+            self.whiteToMove = not self.whiteToMove
 class moveClass:
     # below 4 variables are used for rank-file notation
     rankstoRows = {"1":7, "2":6, "3":5, "4":4, "5":3, "6": 2, "7": 1, "8":0}

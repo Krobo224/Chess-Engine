@@ -33,6 +33,8 @@ def main():
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
+                
+            # mouse Handlers :-->
             elif e.type == p.MOUSEBUTTONDOWN:
                 location = p.mouse.get_pos() # will get (x,y) position of mouse
                 col = location[0] // SQ_SIZE
@@ -50,7 +52,11 @@ def main():
                     gs.makeMove(move)
                     squareSelected = () # Again initialize to blank
                     playerClicks = []
-                    #print(move.getChessNotation())  
+            
+            # key Handlers :-->
+            elif e.type == p.KEYDOWN:
+                if e.key == p.K_z and p.key.get_mods() & p.KMOD_LCTRL:
+                    gs.undoFunc()
             
         drawGameState(screen, gs)
         clock.tick(MAX_FPS)
