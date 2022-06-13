@@ -37,16 +37,20 @@ def main():
                 location = p.mouse.get_pos() # will get (x,y) position of mouse
                 col = location[0] // SQ_SIZE
                 row = location[1] // SQ_SIZE
-            if squareSelected == (row, col): # this is when the player selects the same square again
-                squareSelected = () # deselcts the square
-                playerClicks = [] # click player clicks
-            else:
-                squareSelected = (row, col)
-                playerClicks.append(squareSelected) #appends for both 1st and 2nd click
+                if squareSelected == (row, col): # this is when the player selects the same square again
+                    squareSelected = () # deselects the square
+                    playerClicks = [] # click player clicks
+                else:
+                    squareSelected = (row, col)
+                    playerClicks.append(squareSelected) #appends for both 1st and 2nd click
             
-            if len(playerClicks) == 2: # after 2nd click
-                pass
-                
+                if len(playerClicks) == 2: # after 2nd click
+                    move = chess_engine.moveClass(playerClicks[0], playerClicks[1], gs.board)
+                    print(move.getChessNotation())
+                    gs.makeMove(move)
+                    squareSelected = () # Again initialize to blank
+                    playerClicks = []
+                    #print(move.getChessNotation())  
             
         drawGameState(screen, gs)
         clock.tick(MAX_FPS)
